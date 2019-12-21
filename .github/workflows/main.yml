@@ -1,7 +1,6 @@
-
 name: CI
 
-on: [push]
+on: push
 
 jobs:
   buildfront:
@@ -45,6 +44,7 @@ jobs:
   buildserver:
     runs-on: ubuntu-latest
     container: aizugeekdojo/cgo-arm:latest
+
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -69,6 +69,7 @@ jobs:
     - buildfront
     - buildserver
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout
       uses: actions/checkout@v1
@@ -101,6 +102,6 @@ jobs:
     - name: Archive binary for AGD
       run: cd build/gl && tar cvfz ../../gl.tar.gz EnterLeaveSystem/
     - name: Calculate version for tag
-      run: ./calctag.sh
+      run: ./build.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
